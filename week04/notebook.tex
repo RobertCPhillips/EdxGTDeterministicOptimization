@@ -288,7 +288,7 @@ from \textbf{scipy.optimize}. Provide a printout of your code, along
 with the solution.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}9}]:} \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{optimize} \PY{k}{import} \PY{n}{minimize}
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{optimize} \PY{k}{import} \PY{n}{minimize}
         \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{optimize} \PY{k}{import} \PY{n}{minimize\PYZus{}scalar}
 \end{Verbatim}
 
@@ -303,27 +303,26 @@ This is a multivarable scaler function therefore we will use the
 \textbf{minimize} function.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}11}]:} \PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
-             \PY{k}{return} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{l+m+mf}{3.}\PY{o}{*}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{+} \PY{l+m+mf}{4.}\PY{p}{)} \PY{o}{+} \PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mf}{3.}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
-         
-         \PY{n}{min\PYZus{}val} \PY{o}{=} \PY{n}{minimize}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{x0}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BFGS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{n+nb}{print}\PY{p}{(}\PY{n}{min\PYZus{}val}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{l+m+mf}{3.}\PY{o}{*}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{+} \PY{l+m+mf}{4.}\PY{p}{)} \PY{o}{+} \PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mf}{3.}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+        
+        \PY{n}{min\PYZus{}val} \PY{o}{=} \PY{n}{minimize}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{x0}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nelder\PYZhy{}Mead}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{min\PYZus{}val}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-      fun: 2.2351753836826896e-08
- hess\_inv: array([[ 1.00000000e+00, -3.90414423e-07, -6.85134241e-08],
-       [-3.90414423e-07,  5.00000000e-01,  3.36990594e-14],
-       [-6.85134241e-08,  3.36990594e-14,  2.48353156e-09]])
-      jac: array([ 8.94069672e-08, -1.81881177e-11, -1.63912773e-06])
-  message: 'Optimization terminated successfully.'
-     nfev: 195
-      nit: 7
-     njev: 39
-   status: 0
-  success: True
-        x: array([4.03058189e-08, 2.99999999e+00, 1.33333333e+00])
+ final\_simplex: (array([[-0.45756728,  3.00002551,  1.4031226 ],
+       [-0.45750694,  2.99995972,  1.4031042 ],
+       [-0.45749527,  3.00000023,  1.40310064],
+       [-0.45748499,  2.99997449,  1.40309751]]), array([1.66963175e-09, 5.40377641e-09, 6.69364544e-09, 6.85824038e-09]))
+           fun: 1.6696317548007262e-09
+       message: 'Optimization terminated successfully.'
+          nfev: 413
+           nit: 227
+        status: 0
+       success: True
+             x: array([-0.45756728,  3.00002551,  1.4031226 ])
 
     \end{Verbatim}
 
@@ -340,11 +339,11 @@ This is a univariate scalar function therefore we'll use the
 \textbf{minimize\_scalar} function.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}15}]:} \PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
-             \PY{k}{return} \PY{p}{(}\PY{n}{x} \PY{o}{\PYZhy{}} \PY{l+m+mf}{1.}\PY{p}{)}\PY{o}{*}\PY{n}{x}\PY{o}{*}\PY{p}{(}\PY{n}{x} \PY{o}{+} \PY{l+m+mf}{3.}\PY{p}{)} \PY{o}{+} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}
-         
-         \PY{n}{min\PYZus{}val} \PY{o}{=} \PY{n}{minimize\PYZus{}scalar}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{bounds}\PY{o}{=}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{10.}\PY{p}{,}\PY{l+m+mf}{10.}\PY{p}{)}\PY{p}{,} \PY{n}{method}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Golden}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-         \PY{n+nb}{print}\PY{p}{(}\PY{n}{min\PYZus{}val}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{p}{(}\PY{n}{x} \PY{o}{\PYZhy{}} \PY{l+m+mf}{1.}\PY{p}{)}\PY{o}{*}\PY{n}{x}\PY{o}{*}\PY{p}{(}\PY{n}{x} \PY{o}{+} \PY{l+m+mf}{3.}\PY{p}{)} \PY{o}{+} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}
+        
+        \PY{n}{min\PYZus{}val} \PY{o}{=} \PY{n}{minimize\PYZus{}scalar}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{bounds}\PY{o}{=}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{10.}\PY{p}{,}\PY{l+m+mf}{10.}\PY{p}{)}\PY{p}{,} \PY{n}{method}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Golden}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{min\PYZus{}val}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -371,13 +370,13 @@ We can first treat this like a least-squares problem and use
 \textbf{nnls} to solve.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}17}]:} \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{optimize} \PY{k}{import} \PY{n}{nnls}
-         \PY{n}{A} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
-         \PY{n}{b} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{]}
-         
-         \PY{n}{min\PYZus{}val} \PY{o}{=} \PY{n}{nnls}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{b}\PY{p}{)}
-         
-         \PY{n+nb}{print}\PY{p}{(}\PY{n}{min\PYZus{}val}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{optimize} \PY{k}{import} \PY{n}{nnls}
+        \PY{n}{A} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+        \PY{n}{b} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{]}
+        
+        \PY{n}{min\PYZus{}val} \PY{o}{=} \PY{n}{nnls}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{b}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{min\PYZus{}val}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -395,12 +394,12 @@ objective function of \(\sqrt{y_1^2 + y_2^2}\) with
 \(y_1 = 2x_1 -3x_2 - 1\) and \(y_2 = 4x_1 + x_2 - 9\)
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}22}]:} \PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{n}{sqrt} 
-         \PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
-             \PY{k}{return} \PY{n}{sqrt}\PY{p}{(}\PY{p}{(}\PY{l+m+mf}{2.}\PY{o}{*}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mf}{3.}\PY{o}{*}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mf}{1.}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{p}{(}\PY{l+m+mf}{4.}\PY{o}{*}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mf}{9.}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
-         
-         \PY{n}{min\PYZus{}val} \PY{o}{=} \PY{n}{minimize}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{x0}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nelder\PYZhy{}Mead}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{n+nb}{print}\PY{p}{(}\PY{n}{min\PYZus{}val}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{n}{sqrt} 
+        \PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{sqrt}\PY{p}{(}\PY{p}{(}\PY{l+m+mf}{2.}\PY{o}{*}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mf}{3.}\PY{o}{*}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mf}{1.}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{p}{(}\PY{l+m+mf}{4.}\PY{o}{*}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mf}{9.}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+        
+        \PY{n}{min\PYZus{}val} \PY{o}{=} \PY{n}{minimize}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{x0}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nelder\PYZhy{}Mead}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{min\PYZus{}val}\PY{p}{)}
 \end{Verbatim}
 
 

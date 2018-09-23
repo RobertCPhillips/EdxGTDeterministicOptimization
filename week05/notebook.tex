@@ -1,0 +1,602 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{hw5}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{homework-5}{%
+\section{Homework 5}\label{homework-5}}
+
+    \hypertarget{question-1}{%
+\subsection{Question 1}\label{question-1}}
+
+Consider the following linear program. Then Answer the following
+questions.
+
+\(\begin{aligned} \text{min} & \ 3x_1 + x_2 \\ \text{s.t.} & \ x_1 + 2x_2 & \ge 2 \\  & \ 2x_1 + x_2 & \ge 3 \\  & \ x_1 & \ge 0 \\  & \ x_2 & \ge 0 \end{aligned}\)
+
+    \hypertarget{a-draw-the-feasible-region-of-this-lp-in-x_1-x_2.}{%
+\paragraph{\texorpdfstring{(a) Draw the feasible region of this LP in
+\((x_1, x_2)\).}{(a) Draw the feasible region of this LP in (x\_1, x\_2).}}\label{a-draw-the-feasible-region-of-this-lp-in-x_1-x_2.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}plot the solution using matplotlib}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{c+c1}{\PYZsh{} x\PYZhy{}values for our plot}
+        \PY{n}{xmax} \PY{o}{=} \PY{l+m+mi}{5}
+        \PY{n}{ymax} \PY{o}{=} \PY{l+m+mi}{4}
+        \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{xmax}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} the constraints to plot}
+        \PY{n}{y1} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{x} \PY{o}{/} \PY{l+m+mf}{2.}
+        \PY{n}{y2} \PY{o}{=} \PY{l+m+mi}{3} \PY{o}{\PYZhy{}} \PY{l+m+mf}{2.}\PY{o}{*}\PY{n}{x}
+        
+        \PY{c+c1}{\PYZsh{} plot the constraints}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{xmax}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{ymax}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y1}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Feasible Region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZus{}1 + 2x\PYZus{}2 \PYZgt{}= 2\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}2x\PYZus{}1 + x\PYZus{}2 \PYZgt{}= 3\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{;}
+        
+        \PY{c+c1}{\PYZsh{} fill in the feasable region (using a polygon)}
+        \PY{n}{xp} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{xmax}\PY{p}{,} \PY{n}{xmax}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mf}{4.}\PY{o}{/}\PY{l+m+mf}{3.}\PY{p}{]}
+        \PY{n}{yp} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{ymax}\PY{p}{,} \PY{n}{ymax}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{1.}\PY{o}{/}\PY{l+m+mf}{3.}\PY{p}{]}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{fill}\PY{p}{(}\PY{n}{xp} \PY{p}{,}\PY{n}{yp}\PY{p}{,} \PY{n}{hatch}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{b-find-the-optimal-solution-using-the-picture-of-the-feasible-region.-hint-the-optimal-solution-should-be-one-of-the-corner-points-of-the-feasible-region.}{%
+\paragraph{(b) Find the optimal solution using the picture of the
+feasible region. Hint: The optimal solution should be one of the corner
+points of the feasible
+region.}\label{b-find-the-optimal-solution-using-the-picture-of-the-feasible-region.-hint-the-optimal-solution-should-be-one-of-the-corner-points-of-the-feasible-region.}}
+
+The optimal solution may be at \((x_1, x_2)\) of \((0, 3)\),
+\((\frac{4}{3}, \frac{1}{3})\), or \((2, 0)\). This yields objective
+values of \(3\), \(\frac{13}{3}\), and \(6\) repsectively. Therefore the
+optimal objective is at \((0,3)\) with value \(3\).
+
+\hypertarget{c-write-a-cvxpy-code-to-find-the-optimal-solution.}{%
+\paragraph{(c) Write a CVXPY code to find the optimal
+solution.}\label{c-write-a-cvxpy-code-to-find-the-optimal-solution.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k+kn}{import} \PY{n+nn}{cvxpy} \PY{k}{as} \PY{n+nn}{cp}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{c+c1}{\PYZsh{}setup variables and coeffcients}
+        \PY{n}{x} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{c} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{3.}\PY{p}{,} \PY{l+m+mf}{1.}\PY{p}{]}\PY{p}{)}
+        \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{1.}\PY{p}{,}\PY{l+m+mf}{2.}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mf}{2.}\PY{p}{,}\PY{l+m+mf}{1.}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mf}{1.}\PY{p}{,}\PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{,}\PY{l+m+mf}{1.}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+        \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{2.}\PY{p}{,} \PY{l+m+mf}{3.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}setup objective and constraints}
+        \PY{n}{objective} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Minimize}\PY{p}{(}\PY{n}{c}\PY{o}{*}\PY{n}{x}\PY{p}{)}
+        \PY{n}{constraints} \PY{o}{=} \PY{p}{[}\PY{n}{A}\PY{o}{*}\PY{n}{x} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{b}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} solve}
+        \PY{n}{prob} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Problem}\PY{p}{(}\PY{n}{objective}\PY{p}{,} \PY{n}{constraints}\PY{p}{)}
+        \PY{n}{result} \PY{o}{=} \PY{n}{prob}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} display optimal value of variables}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The optimal value is }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{result}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The optimal x1, x2 is }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{[}\PY{n+nb}{round}\PY{p}{(}\PY{n}{xn}\PY{p}{)} \PY{k}{for} \PY{n}{xn} \PY{o+ow}{in} \PY{n}{x}\PY{o}{.}\PY{n}{value}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The optimal value is  3.0
+The optimal x1, x2 is  [-0.0, 3.0]
+
+    \end{Verbatim}
+
+    \hypertarget{question-2}{%
+\subsection{Question 2}\label{question-2}}
+
+Consider a transportation problem with 4 suppliers and 3 customers. The
+supply for each supplier \(s_i\) are given as
+\(s_1 = 10, s_2 = 25, s_3 =18, s_4 = 15\). The demand for each consumer
+\(d_i\) are given as \(d_1 = 15, d_2 = 20, d_3 = 16\). The unit
+transportation cost \(c_{ij}\) between supplier \(i\) and consumer \(j\)
+are given as:
+\(c_{11} = 2, c_{12} = 3, c_{21} = 4, c_{23} = 5, c_{31} = 2, c_{32} = 3, c_{33} = 4, c_{41} = 5, c_{43} = 3\).
+
+\hypertarget{a-formulate-a-linear-program-to-find-the-minimum-total-transportation-cost-to-satisfy-all-the-demand-the-demand-can-be-exceeded.-write-down-the-lp-with-the-given-data.}{%
+\paragraph{(a) Formulate a linear program to find the minimum total
+transportation cost to satisfy all the demand (the demand can be
+exceeded). Write down the LP with the given
+data.}\label{a-formulate-a-linear-program-to-find-the-minimum-total-transportation-cost-to-satisfy-all-the-demand-the-demand-can-be-exceeded.-write-down-the-lp-with-the-given-data.}}
+
+Let \(E\) be the set of edges between the supplier and consumer. Thus
+\(E = \{(1,1), (1,2), (2,1), (2,3), (3,1), (3,2), (3,3), (4,1), (4,3)\}\)
+
+Let \(x_{ij}\) be the demand for consumer \(j\) satisfied by supplier
+\(i\). This yields the following formulation.
+
+\(\begin{aligned} \text{min} & \ \sum_{E} x_{ij}c_{ij} \ & \forall (i,j) \in E \\ \text{s.t.} & \ \sum_{j=1}^{3} x_{ij} \le s_i & \forall i \in \{1,2,3,4\} \\  & \ \sum_{i=1}^{4} x_{ij} \ge d_j & \forall j \in \{1,2,3\} \\  & \ x_{ij} \ge 0 & \forall (i,j) \in E \end{aligned}\)
+
+\hypertarget{b-write-a-cvxpy-code-to-find-the-optimal-solution-of-the-above-lp.}{%
+\paragraph{(b) Write a CVXPY code to find the optimal solution of the
+above
+LP.}\label{b-write-a-cvxpy-code-to-find-the-optimal-solution-of-the-above-lp.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} 9 variables for the connected nodes}
+        \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{4}
+        \PY{n}{j} \PY{o}{=} \PY{l+m+mi}{3}
+        \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{9}
+        
+        \PY{n}{x} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} cost variables as given}
+        \PY{n}{c} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{2.}\PY{p}{,} \PY{l+m+mf}{3.}\PY{p}{,} \PY{l+m+mf}{4.}\PY{p}{,} \PY{l+m+mf}{5.}\PY{p}{,} \PY{l+m+mf}{2.}\PY{p}{,} \PY{l+m+mf}{3.}\PY{p}{,} \PY{l+m+mf}{4.}\PY{p}{,} \PY{l+m+mf}{5.}\PY{p}{,} \PY{l+m+mf}{3.}\PY{p}{]}\PY{p}{)}
+        \PY{n}{bs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{10.}\PY{p}{,} \PY{l+m+mf}{25.}\PY{p}{,} \PY{l+m+mf}{18.}\PY{p}{,} \PY{l+m+mf}{15.}\PY{p}{]}\PY{p}{)}
+        \PY{n}{bd} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{15.}\PY{p}{,} \PY{l+m+mf}{20.}\PY{p}{,} \PY{l+m+mf}{16.}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{S} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{i}\PY{p}{,}\PY{n}{n}\PY{p}{)}\PY{p}{)}
+        \PY{n}{S}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.}\PY{p}{;}\PY{n}{S}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{;}
+        \PY{n}{S}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.}\PY{p}{;}\PY{n}{S}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{;}
+        \PY{n}{S}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.}\PY{p}{;}\PY{n}{S}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{;}\PY{n}{S}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.}\PY{p}{;}
+        \PY{n}{S}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.}\PY{p}{;}\PY{n}{S}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{;}
+        
+        \PY{n}{D} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{j}\PY{p}{,}\PY{n}{n}\PY{p}{)}\PY{p}{)}
+        \PY{n}{D}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.}\PY{p}{;}\PY{n}{D}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.}\PY{p}{;}\PY{n}{D}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.}\PY{p}{;}\PY{n}{D}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.}\PY{p}{;}
+        \PY{n}{D}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.}\PY{p}{;}\PY{n}{D}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.}\PY{p}{;}
+        \PY{n}{D}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.}\PY{p}{;}\PY{n}{D}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.}\PY{p}{;}\PY{n}{D}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.}\PY{p}{;}
+        
+        \PY{c+c1}{\PYZsh{}setup objective and constraints}
+        \PY{n}{objective} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Minimize}\PY{p}{(}\PY{n}{c}\PY{o}{*}\PY{n}{x}\PY{p}{)}
+        \PY{n}{constraints} \PY{o}{=} \PY{p}{[}\PY{n}{S}\PY{o}{*}\PY{n}{x} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{bs}\PY{p}{,} \PY{n}{D}\PY{o}{*}\PY{n}{x} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{bd}\PY{p}{,} \PY{n}{x} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{0}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} solve}
+        \PY{n}{prob} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Problem}\PY{p}{(}\PY{n}{objective}\PY{p}{,} \PY{n}{constraints}\PY{p}{)}
+        \PY{n}{result} \PY{o}{=} \PY{n}{prob}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} display optimal value of variables}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The optimal value is }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{result}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The optimal x is }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{[}\PY{n+nb}{round}\PY{p}{(}\PY{n}{xij}\PY{p}{)} \PY{k}{for} \PY{n}{xij} \PY{o+ow}{in} \PY{n}{x}\PY{o}{.}\PY{n}{value}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The optimal value is  154.0
+The optimal x is  [3.0, 7.0, 7.0, 1.0, 5.0, 13.0, 0.0, -0.0, 15.0]
+
+    \end{Verbatim}
+
+    \hypertarget{c-modify-your-code-so-that-every-demand-is-satisfied-exactly-i.e.cannot-be-exceeded.}{%
+\paragraph{(c) Modify your code so that every demand is satisfied
+exactly, i.e.~cannot be
+exceeded.}\label{c-modify-your-code-so-that-every-demand-is-satisfied-exactly-i.e.cannot-be-exceeded.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} modify constraint to ==}
+        \PY{n}{constraints} \PY{o}{=} \PY{p}{[}\PY{n}{S}\PY{o}{*}\PY{n}{x} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{bs}\PY{p}{,} \PY{n}{D}\PY{o}{*}\PY{n}{x} \PY{o}{==} \PY{n}{bd}\PY{p}{,} \PY{n}{x} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{0}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} solve}
+        \PY{n}{prob} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Problem}\PY{p}{(}\PY{n}{objective}\PY{p}{,} \PY{n}{constraints}\PY{p}{)}
+        \PY{n}{result} \PY{o}{=} \PY{n}{prob}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} display optimal value of variables}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The optimal value is }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{result}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The optimal x is }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{[}\PY{n+nb}{round}\PY{p}{(}\PY{n}{xij}\PY{p}{)} \PY{k}{for} \PY{n}{xij} \PY{o+ow}{in} \PY{n}{x}\PY{o}{.}\PY{n}{value}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The optimal value is  154.0
+The optimal x is  [1.0, 9.0, 7.0, 1.0, 7.0, 11.0, 0.0, 0.0, 15.0]
+
+    \end{Verbatim}
+
+    The previous result where the demand constraint was changed to an
+equality yields a different solution but with the same objective value.
+
+    \hypertarget{question-3}{%
+\subsection{Question 3}\label{question-3}}
+
+Consider the following electric power network taken from a real-world
+electric power system. Electricity generators are located at nodes 1, 3,
+and 5. Electricity loads are located at nodes 2, 4, and 6.
+
+Denote the amount of generation of generator \(i\) as \(p_i\) and the
+demand of consumer \(j\) as \(d_j\).
+
+The demand is given as \(d_1 = 90\), \(d_2 = 100\), \(d_3 = 125\). The
+range of generation lower and upper bounds are given as
+\(p_1^{min} = 10\), \(p_1^{max} = 250\), \(p_2^{min} = 10\),
+\(p_2^{max} = 300\), \(p_3^{min} = 10\), \(p_3^{max} = 270\).
+
+The flow limit on lines are given as \(f_{12}^{max} = 50\),
+\(f_{23}^{max} = 60\), \(f_{34}^{max} = 90\), \(f_{45}^{max} = 50\),
+\(f_{56}^{max} = 120\), \(f_{61}^{max} = 100\).
+
+The line parameters are given as \(B_{12} = 11.6\), \(B_{23} = 5.9\),
+\(B_{34} = 13.7\), \(B_{45} = 9.8\), \(B_{56} = 5.6\),
+\(B_{61} = 10.5\).
+
+The unit generation costs are given as \(c_1 = 5\), \(c_2 = 2\),
+\(c_3 = 3\).
+
+\hypertarget{a-formulate-the-power-system-scheduling-problem-using-the-model-discussed-in-lecture-2.}{%
+\paragraph{(a) Formulate the power system scheduling problem using the
+model discussed in Lecture
+2.}\label{a-formulate-the-power-system-scheduling-problem-using-the-model-discussed-in-lecture-2.}}
+
+\(\text{let} \ \mathbf{E} = \{(1,2),(2,3),(3,4),(4,5),(5,6),(6,1)\} \\ \begin{aligned} \text{min} & \ \sum_{i=1}^{3} p_ic_i \\ \text{s.t.} & \ p_i^{min} \le p_i \le p_i^{max} \ & \forall i \in \{1,2,3\} \\  & \ -f_{ij}^{max} \le f_{ij} \le f_{ij}^{max} \ & \forall (i,j) \in \mathbf{E} \\  & f_{ij} = B_{ij}(\theta_i - \theta_j) \ & \forall (i,j) \in \mathbf{E} \\  & f_{12} - f_{61} = p_1 \\  & -f_{23} + f_{34} = p_2 \\  & -f_{45} + f_{56} = p_3 \\  & f_{12} - f_{23} = d_1 \\  & f_{34} - f_{45} = d_2 \\  & -f_{61} + f_{56} = d_3 \\ \end{aligned}\)
+
+    \hypertarget{b-implement-and-solve-the-model-using-cvxpy.-write-down-the-optimal-solution.}{%
+\paragraph{(b) Implement and solve the model using CVXPY. Write down the
+optimal
+solution.}\label{b-implement-and-solve-the-model-using-cvxpy.-write-down-the-optimal-solution.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{c+c1}{\PYZsh{} 6 variables for 6 node potentials (thetas)}
+         \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{6}
+         
+         \PY{n}{x} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} \PY{c+c1}{\PYZsh{}theta for each node}
+         
+         \PY{c+c1}{\PYZsh{} variables as given}
+         \PY{n}{c} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{5.}\PY{p}{,} \PY{l+m+mf}{2.}\PY{p}{,} \PY{l+m+mf}{3.}\PY{p}{]}\PY{p}{)}
+         \PY{n}{B} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{11.6}\PY{p}{,} \PY{l+m+mf}{5.9}\PY{p}{,} \PY{l+m+mf}{13.7}\PY{p}{,} \PY{l+m+mf}{9.8}\PY{p}{,} \PY{l+m+mf}{5.6}\PY{p}{,} \PY{l+m+mf}{10.5}\PY{p}{]}\PY{p}{)}
+         \PY{n}{pmin} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{10.}\PY{p}{,} \PY{l+m+mf}{10.}\PY{p}{,} \PY{l+m+mf}{10.}\PY{p}{]}\PY{p}{)}
+         \PY{n}{pmax} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{250.}\PY{p}{,} \PY{l+m+mf}{300.}\PY{p}{,} \PY{l+m+mf}{270.}\PY{p}{]}\PY{p}{)}
+         \PY{n}{fmax} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{50.}\PY{p}{,} \PY{l+m+mf}{60.}\PY{p}{,} \PY{l+m+mf}{90.}\PY{p}{,} \PY{l+m+mf}{50.}\PY{p}{,} \PY{l+m+mf}{120.}\PY{p}{,} \PY{l+m+mf}{100.}\PY{p}{]}\PY{p}{)}
+         \PY{n}{d} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{90.}\PY{p}{,} \PY{l+m+mf}{100.}\PY{p}{,} \PY{l+m+mf}{125.}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}generator node flow conservation (as a function of theta and B)}
+         \PY{n}{P} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{+}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{]}\PY{p}{,}
+                       \PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{B}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{,}
+                       \PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{n}{B}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{o}{+}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}demand node flow conservation (as a function of theta and B)}
+         \PY{n}{D} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{B}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{,}
+                       \PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{,} \PY{n}{B}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{n}{B}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{,}
+                       \PY{p}{[}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{,} \PY{n}{B}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}flow limits (as a function of theta and B \PYZhy{} f\PYZus{}ij = B\PYZus{}ij(theta\PYZus{}i\PYZhy{}theta\PYZus{}j))}
+         \PY{n}{F} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+                       \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{B}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+                       \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{B}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+                       \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{B}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+                       \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{B}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{]}\PY{p}{,}
+                       \PY{p}{[}\PY{o}{\PYZhy{}}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{B}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}setup objective and constraints}
+         \PY{n}{objective} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Minimize}\PY{p}{(}\PY{n}{P}\PY{o}{*}\PY{n}{x}\PY{o}{*}\PY{n}{c}\PY{p}{)}
+         \PY{n}{constraints} \PY{o}{=} \PY{p}{[}\PY{n}{P}\PY{o}{*}\PY{n}{x} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{pmax}\PY{p}{,} \PY{n}{P}\PY{o}{*}\PY{n}{x} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{pmin}\PY{p}{,} \PY{n}{D}\PY{o}{*}\PY{n}{x} \PY{o}{==} \PY{n}{d}\PY{p}{,} \PY{n}{F}\PY{o}{*}\PY{n}{x} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{fmax}\PY{p}{,} \PY{n}{F}\PY{o}{*}\PY{n}{x} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{fmax}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} solve}
+         \PY{n}{prob} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Problem}\PY{p}{(}\PY{n}{objective}\PY{p}{,} \PY{n}{constraints}\PY{p}{)}
+         \PY{n}{result} \PY{o}{=} \PY{n}{prob}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} display optimal value of variables}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The solver status is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{prob}\PY{o}{.}\PY{n}{status}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The optimal value is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{result}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The optimal x (theta\PYZus{}1, ..., theta\PYZus{}6) is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{[}\PY{n+nb}{round}\PY{p}{(}\PY{n}{xi}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{xi} \PY{o+ow}{in} \PY{n}{x}\PY{o}{.}\PY{n}{value}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}print(P)}
+         \PY{c+c1}{\PYZsh{}print(D)}
+         \PY{c+c1}{\PYZsh{}print(F)}
+         \PY{c+c1}{\PYZsh{}print(prob)}
+         \PY{c+c1}{\PYZsh{}print(x.value)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The power generation values (p\PYZus{}1, p\PYZus{}2, p\PYZus{}3) are}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{[}\PY{n+nb}{round}\PY{p}{(}\PY{n}{p}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{P}\PY{p}{,}\PY{n}{x}\PY{o}{.}\PY{n}{value}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The solver status is optimal
+The optimal value is 992.04
+The optimal x (theta\_1, {\ldots}, theta\_6) is  [-2.28, -4.87, 5.3, 1.65, 6.75, -6.9]
+The power generation values (p\_1, p\_2, p\_3) are [78.52, 110.0, 126.48]
+
+    \end{Verbatim}
+
+    \hypertarget{c-find-the-electricity-prices-for-demand-at-nodes-2-4-6.-to-do-this-use-the-command-constraints0.dual-value-to-find-the-dual-variable-of-constraints0.-hint-recall-the-electricity-price-at-node-i-is-the-dual-variable-for-the-flow-conservation-constraint-at-node-i.}{%
+\paragraph{\texorpdfstring{(c) Find the electricity prices for demand at
+nodes \(2\), \(4\), \(6\). To do this, use the command
+constraints{[}0{]}.dual value to find the dual variable of
+constraints{[}0{]}. Hint: Recall the electricity price at node i is the
+dual variable for the flow conservation constraint at node
+\(i\).}{(c) Find the electricity prices for demand at nodes 2, 4, 6. To do this, use the command constraints{[}0{]}.dual value to find the dual variable of constraints{[}0{]}. Hint: Recall the electricity price at node i is the dual variable for the flow conservation constraint at node i.}}\label{c-find-the-electricity-prices-for-demand-at-nodes-2-4-6.-to-do-this-use-the-command-constraints0.dual-value-to-find-the-dual-variable-of-constraints0.-hint-recall-the-electricity-price-at-node-i-is-the-dual-variable-for-the-flow-conservation-constraint-at-node-i.}}
+
+The demand nodes are represented by the constraint D*x == d, which is
+the 3rd item in the list of constraint variables.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{constraints}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{dual\PYZus{}value}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[-5.62968516 -2.53316407 -4.30434783]
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
