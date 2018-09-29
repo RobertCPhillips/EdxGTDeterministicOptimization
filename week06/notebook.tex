@@ -311,38 +311,41 @@ Therefore we will have 11 total variables (\emph{1 for the 1st stage and
 10 for the second stage.)}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{cvxpy} \PY{k}{as} \PY{n+nn}{cp}
-        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
-        
-        \PY{c+c1}{\PYZsh{} given values}
-        \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{5} \PY{c+c1}{\PYZsh{} scenario count}
-        
-        \PY{n}{d} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{10.}\PY{p}{,} \PY{l+m+mf}{20.}\PY{p}{,} \PY{l+m+mf}{30.}\PY{p}{,} \PY{l+m+mf}{40.}\PY{p}{,} \PY{l+m+mf}{50.}\PY{p}{]}\PY{p}{)}
-        \PY{n}{p} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{15}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{30}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{25}\PY{p}{,} \PY{l+m+mf}{0.2}\PY{p}{]}\PY{p}{)}
-        \PY{n}{c} \PY{o}{=} \PY{l+m+mf}{10.}
-        \PY{n}{r} \PY{o}{=} \PY{l+m+mf}{15.}
-        \PY{n}{s} \PY{o}{=} \PY{l+m+mf}{5.}
-        \PY{n}{xbar} \PY{o}{=} \PY{l+m+mf}{75.}
-        
-        \PY{c+c1}{\PYZsh{}lp variables}
-        \PY{n}{x} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{p}{)}
-        \PY{n}{y} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
-        \PY{n}{z} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
-        
-        \PY{c+c1}{\PYZsh{}problem setup}
-        \PY{n}{objective} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Minimize}\PY{p}{(}\PY{n}{c}\PY{o}{*}\PY{n}{x} \PY{o}{+} \PY{n}{p}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{r}\PY{o}{*}\PY{n}{y}\PY{o}{\PYZhy{}}\PY{n}{s}\PY{o}{*}\PY{n}{z}\PY{p}{)}\PY{p}{)}
-        \PY{n}{constraints} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mf}{0.}\PY{p}{,} \PY{n}{x} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{xbar}\PY{p}{,} \PY{n}{y} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mf}{0.}\PY{p}{,} \PY{n}{y} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{d}\PY{p}{,} \PY{n}{z} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mf}{0.}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{x} \PY{o}{+} \PY{n}{y} \PY{o}{+} \PY{n}{z} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mf}{0.}\PY{p}{]}
-        
-        \PY{c+c1}{\PYZsh{}solve}
-        \PY{n}{prob} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Problem}\PY{p}{(}\PY{n}{objective}\PY{p}{,} \PY{n}{constraints}\PY{p}{)}
-        \PY{n}{result} \PY{o}{=} \PY{n}{prob}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{p}{)}
-        
-        \PY{c+c1}{\PYZsh{}output results}
-        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The problem status is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{prob}\PY{o}{.}\PY{n}{status}\PY{p}{)}
-        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The objective value is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{result}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
-        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The production quanity is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{value}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
-        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The retail qty for each scenario is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{[}\PY{n+nb}{round}\PY{p}{(}\PY{n}{yy}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{yy} \PY{o+ow}{in} \PY{n}{y}\PY{o}{.}\PY{n}{value}\PY{p}{]}\PY{p}{)}
-        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The sale qty for each scenario is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{[}\PY{n+nb}{round}\PY{p}{(}\PY{n}{zz}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{zz} \PY{o+ow}{in} \PY{n}{z}\PY{o}{.}\PY{n}{value}\PY{p}{]}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}22}]:} \PY{k+kn}{import} \PY{n+nn}{cvxpy} \PY{k}{as} \PY{n+nn}{cp}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{c+c1}{\PYZsh{} given values}
+         \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{5} \PY{c+c1}{\PYZsh{} scenario count}
+         
+         \PY{n}{d} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{10.}\PY{p}{,} \PY{l+m+mf}{20.}\PY{p}{,} \PY{l+m+mf}{30.}\PY{p}{,} \PY{l+m+mf}{40.}\PY{p}{,} \PY{l+m+mf}{50.}\PY{p}{]}\PY{p}{)}
+         \PY{n}{p} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{15}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{30}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{25}\PY{p}{,} \PY{l+m+mf}{0.2}\PY{p}{]}\PY{p}{)}
+         \PY{n}{c} \PY{o}{=} \PY{l+m+mf}{10.}
+         \PY{n}{r} \PY{o}{=} \PY{l+m+mf}{15.}
+         \PY{n}{s} \PY{o}{=} \PY{l+m+mf}{5.}
+         \PY{n}{xbar} \PY{o}{=} \PY{l+m+mf}{75.}
+         
+         \PY{c+c1}{\PYZsh{}lp variables}
+         \PY{n}{x} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{z} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}problem setup}
+         \PY{n}{objective} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Minimize}\PY{p}{(}\PY{n}{c}\PY{o}{*}\PY{n}{x} \PY{o}{+} \PY{n}{p}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{r}\PY{o}{*}\PY{n}{y}\PY{o}{\PYZhy{}}\PY{n}{s}\PY{o}{*}\PY{n}{z}\PY{p}{)}\PY{p}{)}
+         \PY{n}{constraints} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mf}{0.}\PY{p}{,} \PY{n}{x} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{xbar}\PY{p}{,} \PY{n}{y} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mf}{0.}\PY{p}{,} \PY{n}{y} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{d}\PY{p}{,} \PY{n}{z} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mf}{0.}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{x} \PY{o}{+} \PY{n}{y} \PY{o}{+} \PY{n}{z} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mf}{0.}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}solve}
+         \PY{n}{prob} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Problem}\PY{p}{(}\PY{n}{objective}\PY{p}{,} \PY{n}{constraints}\PY{p}{)}
+         \PY{n}{result} \PY{o}{=} \PY{n}{prob}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}output results}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The problem status is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{prob}\PY{o}{.}\PY{n}{status}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The objective value is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{result}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}print(x.value)}
+         \PY{c+c1}{\PYZsh{}print(y.value)}
+         \PY{c+c1}{\PYZsh{}print(z.value)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The production quanity is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x}\PY{o}{.}\PY{n}{value}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The retail qty for each scenario is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{.}\PY{n}{value}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The sale qty for each scenario is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{z}\PY{o}{.}\PY{n}{value}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -350,8 +353,8 @@ Therefore we will have 11 total variables (\emph{1 for the 1st stage and
 The problem status is optimal
 The objective value is -115.0
 The production quanity is 30.0
-The retail qty for each scenario is [10.0, 20.0, 30.0, 30.0, 30.0]
-The sale qty for each scenario is [20.0, 10.0, 0.0, 0.0, 0.0]
+The retail qty for each scenario is [10. 20. 30. 30. 30.]
+The sale qty for each scenario is [20. 10.  0.  0.  0.]
 
     \end{Verbatim}
 
@@ -388,78 +391,78 @@ I ended up with 2 implementations. The first is a direct implementation
 of the ADR. The other is the LP formulation. Both yield the same result.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} direct implementation of ADR}
-        
-        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
-        
-        \PY{c+c1}{\PYZsh{} load the file data (I created these files from the given file)}
-        \PY{n}{xs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{loadtxt}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x.dat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-        \PY{c+c1}{\PYZsh{}print(xs.shape)}
-        
-        \PY{n}{ys} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{loadtxt}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y.dat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-        \PY{c+c1}{\PYZsh{}print(ys.shape)}
-        
-        \PY{c+c1}{\PYZsh{}lp variables}
-        \PY{n}{x} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
-        \PY{n}{ones} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{[}\PY{n}{xs}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
-        \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{[}\PY{n}{ones}\PY{p}{,} \PY{n}{xs}\PY{p}{]}\PY{p}{)}
-        \PY{c+c1}{\PYZsh{}print(A)}
-        
-        \PY{c+c1}{\PYZsh{}problem setup}
-        \PY{n}{objective} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Minimize}\PY{p}{(}\PY{n}{cp}\PY{o}{.}\PY{n}{sum\PYZus{}entries}\PY{p}{(}\PY{n}{cp}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{ys} \PY{o}{\PYZhy{}} \PY{n}{A}\PY{o}{*}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{)}
-        \PY{n}{constraints} \PY{o}{=} \PY{k+kc}{None}
-        
-        \PY{c+c1}{\PYZsh{}solve}
-        \PY{n}{prob} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Problem}\PY{p}{(}\PY{n}{objective}\PY{p}{,} \PY{n}{constraints}\PY{p}{)}
-        \PY{n}{result} \PY{o}{=} \PY{n}{prob}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{p}{)}
-        
-        \PY{c+c1}{\PYZsh{}output results}
-        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The problem status is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{prob}\PY{o}{.}\PY{n}{status}\PY{p}{)}
-        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The objective value is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{result}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
-        
-        \PY{n}{params} \PY{o}{=} \PY{p}{[}\PY{n}{xx}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{xx} \PY{o+ow}{in} \PY{n}{x}\PY{o}{.}\PY{n}{value}\PY{p}{]}
-        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The hyperplane parameters are}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{[}\PY{n+nb}{round}\PY{p}{(}\PY{n}{xx}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)} \PY{k}{for} \PY{n}{xx} \PY{o+ow}{in} \PY{n}{params}\PY{p}{]}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} direct implementation of ADR}
+         
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{c+c1}{\PYZsh{} load the file data (I created these files from the given file)}
+         \PY{n}{xs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{loadtxt}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x.dat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}print(xs.shape)}
+         
+         \PY{n}{ys} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{loadtxt}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y.dat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}print(ys.shape)}
+         
+         \PY{c+c1}{\PYZsh{}lp variables}
+         \PY{n}{x} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{ones} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{[}\PY{n}{xs}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{[}\PY{n}{ones}\PY{p}{,} \PY{n}{xs}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}print(A)}
+         
+         \PY{c+c1}{\PYZsh{}problem setup}
+         \PY{n}{objective} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Minimize}\PY{p}{(}\PY{n}{cp}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{cp}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{ys} \PY{o}{\PYZhy{}} \PY{n}{A}\PY{o}{*}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{constraints} \PY{o}{=} \PY{k+kc}{None}
+         
+         \PY{c+c1}{\PYZsh{}solve}
+         \PY{n}{prob} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Problem}\PY{p}{(}\PY{n}{objective}\PY{p}{,} \PY{n}{constraints}\PY{p}{)}
+         \PY{n}{result} \PY{o}{=} \PY{n}{prob}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}output results}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The problem status is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{prob}\PY{o}{.}\PY{n}{status}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The objective value is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{result}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{params} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{value}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The hyperplane parameters are}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{params}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
 The problem status is optimal
 The objective value is 26.52
-The hyperplane parameters are [0.4036, 0.185, -0.1995]
+The hyperplane parameters are [ 0.4036  0.185  -0.1995]
 
     \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} lp formulation}
-        
-        \PY{n}{m} \PY{o}{=} \PY{n}{xs}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{l+m+mi}{1}
-        \PY{n}{n} \PY{o}{=} \PY{n}{xs}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
-        \PY{n}{b} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
-        \PY{n}{z} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
-        
-        \PY{n}{ones} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{[}\PY{n}{n}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
-        \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{[}\PY{n}{ones}\PY{p}{,} \PY{n}{xs}\PY{p}{]}\PY{p}{)}
-        
-        \PY{c+c1}{\PYZsh{}problem setup}
-        \PY{n}{objective} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Minimize}\PY{p}{(}\PY{n}{cp}\PY{o}{.}\PY{n}{sum\PYZus{}entries}\PY{p}{(}\PY{n}{z}\PY{p}{)}\PY{p}{)}
-        \PY{n}{constraints} \PY{o}{=} \PY{p}{[}\PY{n}{A}\PY{o}{*}\PY{n}{b} \PY{o}{\PYZhy{}} \PY{n}{ys} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{z}\PY{p}{,} \PY{n}{A}\PY{o}{*}\PY{n}{b} \PY{o}{\PYZhy{}} \PY{n}{ys} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{z}\PY{p}{]}
-        
-        \PY{c+c1}{\PYZsh{}solve}
-        \PY{n}{prob} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Problem}\PY{p}{(}\PY{n}{objective}\PY{p}{,} \PY{n}{constraints}\PY{p}{)}
-        \PY{n}{result} \PY{o}{=} \PY{n}{prob}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{p}{)}
-        
-        \PY{c+c1}{\PYZsh{}output results}
-        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The problem status is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{prob}\PY{o}{.}\PY{n}{status}\PY{p}{)}
-        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The objective value is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{result}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
-        \PY{n}{params} \PY{o}{=} \PY{p}{[}\PY{n}{bb}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{bb} \PY{o+ow}{in} \PY{n}{b}\PY{o}{.}\PY{n}{value}\PY{p}{]}
-        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The hyperplane parameters are}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{[}\PY{n+nb}{round}\PY{p}{(}\PY{n}{bb}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)} \PY{k}{for} \PY{n}{bb} \PY{o+ow}{in} \PY{n}{params}\PY{p}{]}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} lp formulation}
+         
+         \PY{n}{m} \PY{o}{=} \PY{n}{xs}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{l+m+mi}{1}
+         \PY{n}{n} \PY{o}{=} \PY{n}{xs}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{b} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{z} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{n}{ones} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{[}\PY{n}{n}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{[}\PY{n}{ones}\PY{p}{,} \PY{n}{xs}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}problem setup}
+         \PY{n}{objective} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Minimize}\PY{p}{(}\PY{n}{cp}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{z}\PY{p}{)}\PY{p}{)}
+         \PY{n}{constraints} \PY{o}{=} \PY{p}{[}\PY{n}{A}\PY{o}{*}\PY{n}{b} \PY{o}{\PYZhy{}} \PY{n}{ys} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{z}\PY{p}{,} \PY{n}{A}\PY{o}{*}\PY{n}{b} \PY{o}{\PYZhy{}} \PY{n}{ys} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{z}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}solve}
+         \PY{n}{prob} \PY{o}{=} \PY{n}{cp}\PY{o}{.}\PY{n}{Problem}\PY{p}{(}\PY{n}{objective}\PY{p}{,} \PY{n}{constraints}\PY{p}{)}
+         \PY{n}{result} \PY{o}{=} \PY{n}{prob}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}output results}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The problem status is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{prob}\PY{o}{.}\PY{n}{status}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The objective value is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{result}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         \PY{n}{params} \PY{o}{=} \PY{n}{b}\PY{o}{.}\PY{n}{value}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The hyperplane parameters are}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{params}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
 The problem status is optimal
 The objective value is 26.52
-The hyperplane parameters are [0.4036, 0.185, -0.1995]
+The hyperplane parameters are [ 0.4036  0.185  -0.1995]
 
     \end{Verbatim}
 
@@ -469,7 +472,7 @@ hyperplane obtained from
 (ADR).}\label{d-write-a-python-code-to-plot-the-data-points-and-the-hyperplane-obtained-from-adr.}}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}12}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+{\color{incolor}In [{\color{incolor}29}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
          
          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{xs}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{xs}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{ys} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{;}
          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
