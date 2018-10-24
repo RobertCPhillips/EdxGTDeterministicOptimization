@@ -288,7 +288,12 @@
 
 Given the following LP:
 
-\(\begin{align} \text{max } & 2x_1 + x_2 + 4x_3 + 15x_4 \\ \text{s.t. } & 4x_1 + x_2 + 2x_3 + 3x_4 \le 700 \\ & 4x_1 + 2x_2 + x_3 + 5x_4 \le 700 \\ & x_1, x_2, x_3, x_4 \ge 0 \end{align}\)
+\$ \begin{align} \\
+\text{max } &  2x_1 + x_2 + 4x_3 + 15x_4 \\
+\text{s.t. } & 4x_1 + x_2 + 2x_3 + 3x_4 \le 700 \\
+& 4x_1 + 2x_2 + x_3 + 5x_4 \le 700 \\
+& x_1, x_2, x_3, x_4 \ge 0 \\
+\end{align} \$
 
 \hypertarget{form-the-dual-minimization-problem.}{%
 \paragraph{1. Form the dual minimization
@@ -301,7 +306,14 @@ also as solution to the primal (given) LP.
 
 The dual of the given LP is:
 
-\(\begin{align} \text{min } & 700y_1 + 700y_2 \\ \text{s.t. } & 4y_1 + 4y_2 \ge 2 \\ & y_1 + 2y_2 \ge 1 \\ & 2y_1 + y_2 \ge 4 \\ & 3y_1 + 5y_2 \ge 15 \\ & y_1, y_2 \ge 0 \end{align}\)
+\$ \begin{align} \\
+\text{min } &  700y_1 + 700y_2 \\
+\text{s.t. } & 4y_1 + 4y_2 \ge 2 \\
+& y_1 + 2y_2 \ge 1 \\
+& 2y_1 + y_2 \ge 4 \\
+& 3y_1 + 5y_2 \ge 15 \\
+& y_1, y_2 \ge 0 \\
+\end{align} \$
 
 \hypertarget{draw-the-feasible-region-of-your-dual-problem.}{%
 \paragraph{2. Draw the feasible region of your dual
@@ -470,10 +482,7 @@ This is the same as
 
 This is reformulated as:
 
-\$ \sum\_\{i=0\}\^{}n x\_i\frac{|d_i - \bar{d_i}|}{\hat{d_i}} \le g
-\textbackslash{} -d\_i \le -\bar\{d\_i\} + \hat{d_i} \textbackslash{}
-d\_i \le \bar\{d\_i\} + \hat{d_i} \textbackslash{} -w\_i + d\_i
-\le \bar\{d\_i\} \textbackslash{} -w\_i - d\_i \le -\bar\{d\_i\} \$
+\(\sum_{i=0}^n x_i\frac{|d_i - \bar{d_i}|}{\hat{d_i}} \le g \\ -d_i \le -\bar{d_i} + \hat{d_i} \\ d_i \le \bar{d_i} + \hat{d_i} \\ -w_i + d_i \le \bar{d_i} \\ -w_i - d_i \le -\bar{d_i}\)
 
 
     % Add a bibliography block to the postdoc
